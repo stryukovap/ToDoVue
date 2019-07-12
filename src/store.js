@@ -9,6 +9,7 @@ export default new Vuex.Store({
         toDoList: [{
             title: 'title1',
             description: 'description1'
+
         },
             {
                 title: 'title2',
