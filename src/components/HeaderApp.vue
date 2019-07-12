@@ -1,6 +1,6 @@
 <template>
     <div class="header-logged">
-        <span class="user">{{userEmail}}</span>
+        <span class="user_name">{{userEmail}}</span>
         <button @click="userLogOut">LogOut</button>
     </div>
 </template>

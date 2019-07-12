@@ -16,15 +16,12 @@
 
     import HeaderApp from "../components/HeaderApp";
     import TodoItem from "../components/TodoItem";
-    import {mapState} from 'vuex';
-    import axios from 'axios';
+    import {mapActions, mapState} from 'vuex';
 
     export default {
         name: 'home',
         data: function () {
-            return {
-                // arrayToDo: [],
-            }
+            return {}
         },
         components: {
             HeaderApp, TodoItem
@@ -33,26 +30,15 @@
             mapState([
                 'authUser',
                 'toDoList'
-            ])
-        ,
+            ]),
         mounted() {
-            const CRUD = axios.create({
-                baseURL:'https://raysael.herokuapp.com',
-                params:this.authUser
-            });
-            CRUD.get('https://raysael.herokuapp.com')
-                .then(response => {
-                    // handle success
-                    window.console.log(response);
-                })
-                .catch(error => {
-                    // handle error
-                    window.console.log(error);
-                })
-
-
+            this.getToDos()
         },
-        methods: {}
+        methods: {
+            ...mapActions([
+                'getToDos'
+            ])
+        }
     }
 </script>
 <style lang="scss">

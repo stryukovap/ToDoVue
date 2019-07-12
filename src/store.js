@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -28,5 +29,18 @@ export default new Vuex.Store({
             state.authUser = payload;
         }
     },
-    actions: {}
+    actions: {
+        getToDos(context) {
+            axios.get(`https://raysael.herokuapp.com/todo?author=${this.authUser}`)
+                .then(response => {
+                    // handle success
+                    window.console.log(response);
+                    context.commit('toDoList', response.data)
+                })
+                .catch(error => {
+                    // handle error
+                    window.console.log(error);
+                });
+        }
+    }
 })
