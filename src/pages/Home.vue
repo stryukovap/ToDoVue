@@ -10,7 +10,7 @@
             />
         </ul>
         <button @click.prevent="showModal" class="todo_plus">Add</button>
-        <CreateToDo @click.prevent="closeModal" v-if="modalShow" />
+        <ModalToDo @click.prevent="closeModal" v-bind:action="'POST'" v-if="modalShow"/>
 
     </div>
 </template>
@@ -19,7 +19,7 @@
 
     import HeaderApp from "../components/HeaderApp";
     import TodoItem from "../components/TodoItem";
-    import CreateToDo from '../components/CreateToDo';
+    import ModalToDo from '../components/ModalToDo';
     import axios from 'axios';
     import {mapActions, mapState} from 'vuex';
 
@@ -31,7 +31,9 @@
             }
         },
         components: {
-            HeaderApp, TodoItem, CreateToDo
+            ModalToDo,
+            HeaderApp,
+            TodoItem
         },
         computed:
             mapState([
@@ -39,26 +41,24 @@
                 'toDoList'
             ]),
         mounted() {
-            // this.getToDos()
-            this.gettodo()
+            this.ActionGet(this.authUser);
+            // this.gettodo()
         },
         methods: {
-            ...mapActions([
-
-            ]),
-        gettodo(){
-            axios.get(`https://raysael.herokuapp.com/todo?author=${this.authUser}`)
-                .then(response => {
-                    // handle success
-                    window.console.log(response);
-                    this.$store.commit('toDoList', response.data)
-                })
-                .catch(error => {
-                    // handle error
-                    window.console.log(error);
-                });
-        }
-        ,
+            ...mapActions(['ActionGet']),
+            // gettodo() {
+            //     axios.get(`https://raysael.herokuapp.com/todo?author=${this.authUser}`)
+            //         .then(response => {
+            //             // handle success
+            //             window.console.log(response);
+            //             this.$store.commit('toDoList', response.data)
+            //         })
+            //         .catch(error => {
+            //             // handle error
+            //             window.console.log(error);
+            //         });
+            // }
+            // ,
             closeModal() {
                 this.modalShow = false;
             },
@@ -69,7 +69,7 @@
     }
 </script>
 <style lang="scss">
-    .todo-list{
+    .todo-list {
         display: flex;
         flex-wrap: wrap;
     }
