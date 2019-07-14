@@ -12,7 +12,7 @@
             </ul>
             <!--            <button @click.prevent="showModal" class="todo__plus">Add</button>-->
             <button @click.prevent="showModal" class="todo__plus"></button>
-            <ModalToDo @click.prevent="closeModal" v-bind:action="'POST'" v-if="modalShow"/>
+            <ModalToDo @click.prevent="closeModal" v-bind:action="'POST'" v-if="modalShow" @clicked="closeModal"/>
         </div>
     </div>
 </template>
@@ -78,18 +78,19 @@
     .container {
         margin: 0 auto;
         max-width: 1200px;
-        @media(max-width: 769px){
+        @media(max-width: 769px) {
             max-width: 320px;
         }
     }
 
     .todo {
         width: 32%;
-        @media(max-width: 769px){
+        @media(max-width: 769px) {
             width: 100%;
         }
         margin: 15px 0.5% 0 0.5%;
-        &:nth-child(3n){
+
+        &:nth-child(3n) {
             margin-right: 0;
         }
 
@@ -100,7 +101,7 @@
             justify-content: flex-start;
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 0 0 50px 0;
         }
 
         &__plus {

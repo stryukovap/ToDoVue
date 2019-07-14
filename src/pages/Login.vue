@@ -80,13 +80,15 @@
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 16px;
-            &:hover{
+
+            &:hover {
                 background-color: #215b82;
                 cursor: pointer;
                 color: #ffffff;
             }
         }
-        &__error{
+
+        &__error {
             margin-top: 10px;
             background-color: #f0142d;
             padding: 5px 10px;

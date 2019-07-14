@@ -1,10 +1,10 @@
 <template>
-    <div class="popup" v-on="$listeners">
-        <form class="todo todo__item" @submit.prevent='saveGroup(action)'>
+    <div class="popup">
+        <form class="todo__item" @submit.prevent='saveGroup(action)'>
             <label for="todo_title">Title</label>
             <input id="todo_title" v-model="current_title" type="text" class="todo__title">
             <label for="todo_description">Description</label>
-            <textarea id="todo_description" v-model="current_description" class="todo__description" rows="7"></textarea>
+            <textarea id="todo_description" v-model="current_description" class="todo__description" rows="7" wrap="hard"></textarea>
             <input class="todo__submit" type="submit" value="Submit">
             <button class="popup__exit" v-on="$listeners"></button>
         </form>
@@ -157,12 +157,16 @@
             max-width: 50vw;
             max-height: 100vh;
             height: 100%;
-            width: 25%;
+            width: 35%;
             left: 0;
             top: 0;
             background-color: #fff;
             transition: 0.64s ease-in-out;
             overflow-y: auto;
+            z-index: 5;
+            @media(max-width: 769px){
+                width: 80%;
+            }
         }
 
         &__title, &__description {
