@@ -5,7 +5,7 @@
                 {{title}}
             </h3>
             <button>Edit</button>
-            <button>Delete</button>
+            <button @click.prevent="delToDo(id)">Delete</button>
         </div>
         <p class="todo_description">
             {{description}}
@@ -14,15 +14,34 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         name: "TodoItem",
         props: {
+            id: String,
             title: String,
             description: String
+        },
+        methods: {
+            delToDo(id) {
+                axios.delete(`https://raysael.herokuapp.com/todo/${id}`)
+                    .then(response => {
+                        // handle success
+                        window.console.log(response);
+                        this.$store.commit('toDoListDel', id);
+                    })
+                    .catch(error => {
+                        // handle error
+                        window.console.log(error);
+                    });
+            }
         }
     }
 </script>
 
 <style scoped lang="scss">
-
+    .todo_item {
+        width: 30%;
+    }
 </style>

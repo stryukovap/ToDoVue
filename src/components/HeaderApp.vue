@@ -1,6 +1,6 @@
 <template>
     <div class="header-logged">
-        <span class="user_name">{{userEmail}}</span>
+        <span class="user_name">{{this.$store.state.authUser}}</span>
         <button @click="userLogOut">LogOut</button>
     </div>
 </template>
@@ -8,9 +8,7 @@
     export default {
         name: 'header-app',
         data() {
-            return {
-                userEmail: this.$store.state.authUser,
-            }
+            return {}
         },
         methods: {
             userLogOut: function () {

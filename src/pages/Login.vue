@@ -1,7 +1,10 @@
 <template>
     <form class="user" @submit.prevent="userLogin" novalidate>
         <img src="" alt="user_photo" class="user_photo">
-        <input type="email" v-model="userEmail" name="email" placeholder="Enter email">
+        <label>
+            Enter email
+            <input type="email" v-model="userEmail" name="email">
+        </label>
         <input type="submit" value="Submit" >
         <div v-if="regexEmail" class="error">Error email</div>
     </form>
@@ -26,7 +29,7 @@
                         "lbUser",
                         JSON.stringify(this.userEmail));
                     this.$store.commit('authUser', this.userEmail);
-                    console.log(this.$route);
+                    // console.log(this.$route);
                     this.$router.push("/");
                 } else {
                     // alert('nesodergit');
