@@ -52,10 +52,44 @@
         display: flex;
         align-items: center;
         flex-direction: column;
+        font-size: 16px;
 
         &__photo {
             width: 50px;
             height: auto;
+        }
+
+        &__label {
+            margin-top: 30px;
+        }
+
+        &__input {
+            margin-top: 10px;
+            background-color: transparent;
+            border: 1px solid #333333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: Roboto, sans-serif;
+            font-size: 16px;
+        }
+
+        &__btn {
+            margin-top: 15px;
+            background-color: transparent;
+            border: 1px solid #333333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            &:hover{
+                background-color: #215b82;
+                cursor: pointer;
+                color: #ffffff;
+            }
+        }
+        &__error{
+            margin-top: 10px;
+            background-color: #f0142d;
+            padding: 5px 10px;
         }
     }
 </style>
