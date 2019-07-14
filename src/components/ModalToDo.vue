@@ -148,7 +148,7 @@
         }
 
         &__item {
-            padding: 40px;
+            padding: 100px 20px 0 20px;
             flex-direction: column;
             position: absolute;
             display: flex;
