@@ -30,6 +30,7 @@
                         // handle success
                         window.console.log(response);
                         this.$store.commit('toDoListDel', id);
+                        this.$store.dispatch('ActionGet',this.$store.state.authUser);
                     })
                     .catch(error => {
                         // handle error

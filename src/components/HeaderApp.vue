@@ -14,6 +14,7 @@
             userLogOut: function () {
                 localStorage.removeItem("lbUser");
                 this.$store.commit('authUser', '');
+                this.$store.commit('toDoList', []);
                 this.$router.push("/login");
                 // alert('messageLogOut');
             },

@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -29,18 +30,17 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        // async getToDos(context) {
-        //     console.log(this.authUser);
-        //     await axios.get(`https://raysael.herokuapp.com/todo?author=${this.authUser}`)
-        //         .then(response => {
-        //             // handle success
-        //             window.console.log(response);
-        //             context.commit('toDoList', response.data)
-        //         })
-        //         .catch(error => {
-        //             // handle error
-        //             window.console.log(error);
-        //         });
-        // }
+        async ActionGet(context,user) {
+            await axios.get(`https://raysael.herokuapp.com/todo?author=${user}`)
+                .then(response => {
+                    // handle success
+                    window.console.log(response);
+                    context.commit('toDoList', response.data)
+                })
+                .catch(error => {
+                    // handle error
+                    window.console.log(error);
+                });
+        }
     }
 })

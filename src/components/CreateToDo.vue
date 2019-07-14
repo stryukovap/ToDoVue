@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="todo_item-create" @click.prevent='saveGroup'>
+        <form class="todo_item-create" @submit.prevent='saveGroup'>
             <label>
                 Title
                 <input v-model="todo.title" type="text" class="todo_title">
@@ -16,7 +16,7 @@
 
 </template>
 <script>
-    import {mapActions, mapState} from 'vuex';
+    import {mapState} from 'vuex';
     import axios from 'axios'
 
     export default {
@@ -57,6 +57,7 @@
                             title: this.todo.title,
                             description: this.todo.description
                         })
+                        this.$store.dispatch('ActionGet', this.$store.state.authUser);
                     })
                     .catch(error => {
                         // handle error

@@ -11,11 +11,7 @@
         </ul>
         <button @click.prevent="showModal" class="todo_plus">Add</button>
         <CreateToDo @click.prevent="closeModal" v-if="modalShow" />
-<!--        <CreateToDo-->
-<!--                @click.prevent="closeModal"-->
-<!--                @clicked="closeModal"-->
-<!--                v-if="modalShow"-->
-<!--        />-->
+
     </div>
 </template>
 
