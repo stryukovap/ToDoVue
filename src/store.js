@@ -57,54 +57,60 @@ export default new Vuex.Store({
                     window.console.log(error);
                 });
         },
-        async ActionSave(context, payload) {
-            console.log(payload);
-            if (payload.action === 'POST') {
-                await axios.post(`${BASE_URL}`,
-                    {
+        async ActionPost(context, payload) {
+            await axios.post(`${BASE_URL}`,
+                {
+                    "author": context.state.authUser,
+                    "title": payload.title,
+                    "description": payload.description
+                }, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                })
+                .then(response => {
+                    // handle success
+                    window.console.log(response);
+                    context.commit('toDoListAdd', {
                         "author": context.state.authUser,
                         "title": payload.title,
                         "description": payload.description
-                    }, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        }
-                    })
-                    .then(response => {
-                        // handle success
-                        window.console.log(response);
-                        context.commit('toDoListAdd', {
-                            "author": context.state.authUser,
-                            "title": payload.title,
-                            "description": payload.description
-                        });
-                        context.dispatch('ActionGet', context.state.authUser);
-                    })
-                    .catch(error => {
-                        // handle error
-                        window.console.log(error);
                     });
+                    context.dispatch('ActionGet', context.state.authUser);
+                })
+                .catch(error => {
+                    // handle error
+                    window.console.log(error);
+                });
+        },
+        async ActionPatch(context, payload) {
+            await axios.patch(`${BASE_URL}/${payload.id}`,
+                {
+                    "title": payload.title,
+                    "description": payload.description
+                }, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                })
+                .then(response => {
+                    // handle success
+                    window.console.log(response);
+                    context.dispatch('ActionGet', context.state.authUser);
+                })
+                .catch(error => {
+                    // handle error
+                    window.console.log(error);
+                });
+        },
+        ActionSave(context, payload) {
+            console.log(payload);
+            if (payload.action === 'POST') {
+                context.dispatch('ActionPost', payload)
             } else {
-                await axios.patch(`${BASE_URL}/${payload.id}`,
-                    {
-                        "title": payload.title,
-                        "description": payload.description
-                    }, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        }
-                    })
-                    .then(response => {
-                        // handle success
-                        window.console.log(response);
-                        context.dispatch('ActionGet', context.state.authUser);
-                    })
-                    .catch(error => {
-                        // handle error
-                        window.console.log(error);
-                    });
+                context.dispatch('ActionPatch', payload)
             }
         }
     }

@@ -1,8 +1,7 @@
 <template>
     <div class="popup" v-on="$listeners">
-        <!--        <form class="todo__item" @submit.prevent='saveGroup(action)' @click.stop>-->
         <form class="todo__item" @submit.prevent='save(action)' @click.stop>
-            <label for="todo_title">Title * {{action}}</label>
+            <label for="todo_title">Title</label>
             <input id="todo_title" v-model="current_title" type="text" class="todo__title">
             <label for="todo_description">Description</label>
             <textarea id="todo_description" v-model="current_description" class="todo__description" rows="7"
