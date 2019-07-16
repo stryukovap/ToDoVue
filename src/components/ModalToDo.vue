@@ -1,10 +1,12 @@
 <template>
     <div class="popup" v-on="$listeners">
-        <form class="todo__item" @submit.prevent='saveGroup(action)' @click.stop>
-            <label for="todo_title">Title</label>
+        <!--        <form class="todo__item" @submit.prevent='saveGroup(action)' @click.stop>-->
+        <form class="todo__item" @submit.prevent='save(action)' @click.stop>
+            <label for="todo_title">Title * {{action}}</label>
             <input id="todo_title" v-model="current_title" type="text" class="todo__title">
             <label for="todo_description">Description</label>
-            <textarea id="todo_description" v-model="current_description" class="todo__description" rows="7" wrap="hard"></textarea>
+            <textarea id="todo_description" v-model="current_description" class="todo__description" rows="7"
+                      wrap="hard"></textarea>
             <input class="todo__submit" type="submit" value="Submit">
             <button class="popup__exit" v-on="$listeners"></button>
         </form>
@@ -12,8 +14,7 @@
 
 </template>
 <script>
-    import {mapState} from 'vuex';
-    import axios from 'axios'
+    import {mapActions, mapState} from 'vuex';
 
     export default {
         name: "ModalToDo",
@@ -26,7 +27,7 @@
         data() {
             return {
                 current_title: this.title,
-                current_description: this.description,
+                current_description: this.description
             }
         },
         computed:
@@ -36,56 +37,16 @@
 
             ]),
         methods: {
-            saveGroup: function (action) {
-                // console.log(action);
-                if (action === 'POST') {
-                    axios.post(`https://raysael.herokuapp.com/todo`,
-                        {
-                            "author": this.authUser,
-                            "title": this.current_title,
-                            "description": this.current_description
-                        }, {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => {
-                            // handle success
-                            window.console.log(response);
-                            this.$store.commit('toDoListAdd', {
-                                author: this.authUser,
-                                title: this.current_title,
-                                description: this.current_description
-                            });
-                            this.$store.dispatch('ActionGet', this.$store.state.authUser);
-                        })
-                        .catch(error => {
-                            // handle error
-                            window.console.log(error);
-                        });
-                } else {
-                    axios.patch(`https://raysael.herokuapp.com/todo/${this.id}`,
-                        {
-                            "title": this.current_title,
-                            "description": this.current_description
-                        }, {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => {
-                            // handle success
-                            window.console.log(response);
-                            this.$store.dispatch('ActionGet', this.$store.state.authUser);
-                        })
-                        .catch(error => {
-                            // handle error
-                            window.console.log(error);
-                        });
-                }
-
+            ...mapActions(['ActionSave']),
+            save: function (current_action) {
+                const tempToDo = {
+                    action: current_action,
+                    id: this.id,
+                    title: this.current_title,
+                    description: this.current_description
+                };
+                // console.log(tempToDo);
+                this.ActionSave(tempToDo);
                 this.$emit("clicked");
             }
         }
@@ -164,7 +125,7 @@
             transition: 0.64s ease-in-out;
             overflow-y: auto;
             z-index: 5;
-            @media(max-width: 769px){
+            @media(max-width: 769px) {
                 width: 80%;
             }
         }
@@ -172,7 +133,7 @@
         &__title, &__description {
             width: 100%;
             box-sizing: border-box;
-            font-family: Roboto,sans-serif;
+            font-family: Roboto, sans-serif;
         }
 
         &__description {

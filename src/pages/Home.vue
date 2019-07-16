@@ -22,7 +22,6 @@
     import HeaderApp from "../components/HeaderApp";
     import TodoItem from "../components/TodoItem";
     import ModalToDo from '../components/ModalToDo';
-    // import axios from 'axios';
     import {mapActions, mapState} from 'vuex';
 
     export default {
@@ -43,24 +42,10 @@
                 'toDoList'
             ]),
         created() {
-            this.ActionGet(this.authUser);
-            // this.gettodo()
+            this.ActionGet();
         },
         methods: {
             ...mapActions(['ActionGet']),
-            // gettodo() {
-            //     axios.get(`https://raysael.herokuapp.com/todo?author=${this.authUser}`)
-            //         .then(response => {
-            //             // handle success
-            //             window.console.log(response);
-            //             this.$store.commit('toDoList', response.data)
-            //         })
-            //         .catch(error => {
-            //             // handle error
-            //             window.console.log(error);
-            //         });
-            // }
-            // ,
             closeModal() {
                 this.modalShow = false;
             },

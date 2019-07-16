@@ -1,8 +1,10 @@
 <template>
     <li class="todo">
         <div class="todo__wrapper">
-            <button class="todo__btn todo__btn--edit" @click.prevent="editToDo(id)" v-bind:action="'PATCH'"></button>
-            <button class="todo__btn todo__btn--delete" @click.prevent="delToDo(id)"></button>
+            <button class="todo__btn todo__btn--edit"
+                    @click.prevent="editToDo(id)"></button>
+            <button class="todo__btn todo__btn--delete"
+                    @click.prevent="delToDo(id)"></button>
         </div>
         <div class="todo__inner">
             <h3 class="todo__title">{{title}}</h3>
@@ -12,12 +14,13 @@
                     v-bind:id="id"
                     v-bind:title="title"
                     v-bind:description="description"
+                    v-bind:action="action"
                     @clicked="closeModal"/>
     </li>
 </template>
 
 <script>
-    import axios from 'axios';
+    import {mapActions} from 'vuex';
     import CreateToDo from './ModalToDo';
 
     export default {
@@ -27,7 +30,8 @@
         },
         data() {
             return {
-                modalShow: false
+                modalShow: false,
+                action: ''
             }
         },
         props: {
@@ -36,24 +40,16 @@
             description: String
         },
         methods: {
+            ...mapActions(['ActionDel']),
             closeModal() {
                 this.modalShow = false;
             },
             editToDo(id) {
+                this.action = 'PATCH';
                 this.modalShow = true;
             },
             delToDo(id) {
-                axios.delete(`https://raysael.herokuapp.com/todo/${id}`)
-                    .then(response => {
-                        // handle success
-                        window.console.log(response);
-                        this.$store.commit('toDoListDel', id);
-                        this.$store.dispatch('ActionGet', this.$store.state.authUser);
-                    })
-                    .catch(error => {
-                        // handle error
-                        window.console.log(error);
-                    });
+                this.ActionDel(id);
                 this.modalShow = false;
             }
         }
