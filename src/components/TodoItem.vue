@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import {mapActions, mapState} from 'vuex';
     import CreateToDo from './ModalToDo';
 
     export default {
@@ -39,8 +39,12 @@
             title: String,
             description: String
         },
+        computed: {
+            ...mapState({
+                authUser: state => state.UserStore.authUser
+            })
+        },
         methods: {
-            ...mapActions(['ActionDel']),
             closeModal() {
                 this.modalShow = false;
             },
@@ -49,7 +53,11 @@
                 this.modalShow = true;
             },
             delToDo(id) {
-                this.ActionDel(id);
+                const payload = {
+                    id,
+                    authUser: this.authUser
+                }
+                this.$store.dispatch('ActionDel', payload)
                 this.modalShow = false;
             }
         }
