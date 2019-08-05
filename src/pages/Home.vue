@@ -36,16 +36,16 @@
             HeaderApp,
             TodoItem
         },
-        computed:
-            mapState([
-                'authUser',
-                'toDoList'
-            ]),
+        computed: {
+            ...mapState({
+                authUser: state => state.UserStore.authUser,
+                toDoList: state => state.toDoStore.toDoList
+            })
+        },
         created() {
-            this.ActionGet();
+            this.$store.dispatch('ActionGet', this.authUser)
         },
         methods: {
-            ...mapActions(['ActionGet']),
             closeModal() {
                 this.modalShow = false;
             },

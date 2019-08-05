@@ -29,23 +29,24 @@
                 current_description: this.description
             }
         },
-        computed:
-            mapState([
-                'authUser',
-                'toDoList',
-
-            ]),
+        computed: {
+            ...mapState({
+                authUser: state => state.UserStore.authUser
+            })
+        },
         methods: {
             ...mapActions(['ActionSave']),
             save: function (current_action) {
                 const tempToDo = {
+                    authUser: this.authUser,
                     action: current_action,
                     id: this.id,
                     title: this.current_title,
                     description: this.current_description
                 };
                 // console.log(tempToDo);
-                this.ActionSave(tempToDo);
+                // this.ActionSave(tempToDo);
+                this.$store.dispatch('ActionSave', tempToDo)
                 this.$emit("clicked");
             }
         }
