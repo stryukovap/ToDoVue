@@ -11,10 +11,10 @@
             <p class="todo__description">{{description}}</p>
         </div>
         <CreateToDo @click.prevent="closeModal" v-if="modalShow"
-                    v-bind:id="id"
-                    v-bind:title="title"
-                    v-bind:description="description"
-                    v-bind:action="action"
+                    :id="id"
+                    :title="title"
+                    :description="description"
+                    :action="action"
                     @clicked="closeModal"/>
     </li>
 </template>
@@ -57,7 +57,7 @@
                     id,
                     authUser: this.authUser
                 }
-                this.$store.dispatch('ActionDel', payload)
+                this.$store.dispatch('ActionDel', payload);
                 this.modalShow = false;
             }
         }

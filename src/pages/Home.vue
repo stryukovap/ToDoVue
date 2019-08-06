@@ -4,15 +4,15 @@
         <div class="container">
             <ul class="todo__list">
                 <TodoItem v-for="(todo,index) in toDoList"
-                          v-bind:key="index"
-                          v-bind:title="todo.title"
-                          v-bind:description="todo.description"
-                          v-bind:id="todo._id"
+                          :key="index"
+                          :title="todo.title"
+                          :description="todo.description"
+                          :id="todo._id"
                 />
             </ul>
             <!--            <button @click.prevent="showModal" class="todo__plus">Add</button>-->
             <button @click.prevent="showModal" class="todo__plus"></button>
-            <ModalToDo @click.prevent="closeModal" v-bind:action="'POST'" v-if="modalShow" @clicked="closeModal"/>
+            <ModalToDo @click.prevent="closeModal" :action="'POST'" v-if="modalShow" @clicked="closeModal"/>
         </div>
     </div>
 </template>

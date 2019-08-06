@@ -46,7 +46,7 @@
                 };
                 // console.log(tempToDo);
                 // this.ActionSave(tempToDo);
-                this.$store.dispatch('ActionSave', tempToDo)
+                this.$store.dispatch('ActionSave', tempToDo);
                 this.$emit("clicked");
             }
         }
