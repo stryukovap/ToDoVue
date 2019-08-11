@@ -13,7 +13,7 @@
 
 </template>
 <script>
-    import {mapActions, mapState} from 'vuex';
+    import {mapState} from 'vuex';
 
     export default {
         name: "ModalToDo",
@@ -35,7 +35,6 @@
             })
         },
         methods: {
-            ...mapActions(['ActionSave']),
             save: function (current_action) {
                 const tempToDo = {
                     authUser: this.authUser,
@@ -44,8 +43,6 @@
                     title: this.current_title,
                     description: this.current_description
                 };
-                // console.log(tempToDo);
-                // this.ActionSave(tempToDo);
                 this.$store.dispatch('ActionSave', tempToDo)
                 this.$emit("clicked");
             }

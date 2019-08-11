@@ -11,16 +11,16 @@
             <p class="todo__description">{{description}}</p>
         </div>
         <CreateToDo @click.prevent="closeModal" v-if="modalShow"
-                    v-bind:id="id"
-                    v-bind:title="title"
-                    v-bind:description="description"
-                    v-bind:action="action"
+                    :id="id"
+                    :title="title"
+                    :description="description"
+                    :action="action"
                     @clicked="closeModal"/>
     </li>
 </template>
 
 <script>
-    import {mapActions, mapState} from 'vuex';
+    import {mapState} from 'vuex';
     import CreateToDo from './ModalToDo';
 
     export default {
